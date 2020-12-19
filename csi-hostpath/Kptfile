@@ -1,0 +1,6 @@
+apiVersion: kpt.dev/v1alpha1
+kind: Kptfile
+metadata:
+  name: csi-hostpath
+packageMetadata:
+  shortDescription: CSI hostpath provisioner

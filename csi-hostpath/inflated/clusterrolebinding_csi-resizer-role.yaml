@@ -1,0 +1,13 @@
+kind: ClusterRoleBinding # Source: csi-hostpath/templates/external-resizer-rbac.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: csi-resizer-role
+subjects:
+- kind: ServiceAccount
+  name: csi-resizer
+  # replace with non-default namespace name
+  namespace: csi-system
+roleRef:
+  kind: ClusterRole
+  name: external-resizer-runner
+  apiGroup: rbac.authorization.k8s.io

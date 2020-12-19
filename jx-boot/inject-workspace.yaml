@@ -1,0 +1,17 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jx-boot-cli
+spec:
+  template:
+    spec:
+      containers:
+        - name: jx
+          volumeMounts:
+            - mountPath: /workspace
+              name: workspace
+      volumes:
+        - name: workspace
+          persistentVolumeClaim:
+            claimName: jx-boot

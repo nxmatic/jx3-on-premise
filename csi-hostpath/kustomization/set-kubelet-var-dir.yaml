@@ -1,0 +1,30 @@
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: csi-hostpathplugin
+spec:
+  template:
+    spec:
+      volumes:
+      - hostPath:
+          path: /var/snap/microk8s/common/var/lib/kubelet/plugins/csi-hostpath
+          type: DirectoryOrCreate
+        name: socket-dir
+      - hostPath:
+          path: /var/snap/microk8s/common/var/lib/kubelet/pods
+          type: DirectoryOrCreate
+        name: mountpoint-dir
+      - hostPath:
+          path: /var/snap/microk8s/common/var/lib/kubelet/plugins_registry
+          type: Directory
+        name: registration-dir
+      - hostPath:
+          path: /var/snap/microk8s/common/var/lib/kubelet/plugins
+          type: Directory
+        name: plugins-dir
+      - hostPath:
+          # 'path' is where PV data is persisted on host.
+          # using /tmp is also possible while the PVs will not available after plugin container recreation or host reboot
+          path: /var/snap/microk8s/common/var/lib/csi-hostpath-data/
+          type: DirectoryOrCreate
+        name: csi-data-dir

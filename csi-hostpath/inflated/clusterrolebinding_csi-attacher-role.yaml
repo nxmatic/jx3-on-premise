@@ -1,0 +1,13 @@
+kind: ClusterRoleBinding # Source: csi-hostpath/templates/external-attacher-rbac.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: csi-attacher-role
+subjects:
+- kind: ServiceAccount
+  name: csi-attacher
+  # replace with non-default namespace name
+  namespace: csi-system
+roleRef:
+  kind: ClusterRole
+  name: external-attacher-runner
+  apiGroup: rbac.authorization.k8s.io

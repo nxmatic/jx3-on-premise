@@ -1,0 +1,21 @@
+helmDefaults:
+  atomic: true
+  devel: false
+  force: false
+  recreatePods: false
+  tillerless: false
+  timeout: 180
+  tls: false
+  verify: false
+  wait: true
+  createNamespace: true
+repositories:
+  - name: stable
+    url: https://charts.helm.sh/stable
+releases:
+  - chart: metallb
+    name: metallb-system
+    namespace: metallb
+  - chart: csi-hostpath
+    name: csi-hostpath
+    namespace: csi-system

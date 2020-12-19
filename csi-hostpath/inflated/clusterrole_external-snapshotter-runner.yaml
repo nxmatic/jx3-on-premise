@@ -1,0 +1,18 @@
+kind: ClusterRole # Source: csi-hostpath/templates/rbac-csi-snapshotter.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  # rename if there are conflicts
+  name: external-snapshotter-runner
+rules:
+- apiGroups: [""]
+  resources: ["events"]
+  verbs: ["list", "watch", "create", "update", "patch"]
+- apiGroups: ["snapshot.storage.k8s.io"]
+  resources: ["volumesnapshotclasses"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["snapshot.storage.k8s.io"]
+  resources: ["volumesnapshotcontents"]
+  verbs: ["create", "get", "list", "watch", "update", "delete"]
+- apiGroups: ["snapshot.storage.k8s.io"]
+  resources: ["volumesnapshotcontents/status"]
+  verbs: ["update"]

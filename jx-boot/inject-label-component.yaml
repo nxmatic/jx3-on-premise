@@ -1,0 +1,10 @@
+---
+apiVersion: builtin
+kind: LabelTransformer
+metadata:
+  name: jx-boot-label-component
+labels:
+  component: boot-loader
+fieldSpecs:
+  - path: metadata/labels
+    create: false

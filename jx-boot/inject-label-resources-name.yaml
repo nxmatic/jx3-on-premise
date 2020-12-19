@@ -1,0 +1,9 @@
+---
+apiVersion: builtin
+kind: LabelTransformer
+metadata:
+  name: jx-boot-label-name-resources
+labels:
+  name: jx-boot-resources
+fieldSpecs:
+  - path: metadata/labels

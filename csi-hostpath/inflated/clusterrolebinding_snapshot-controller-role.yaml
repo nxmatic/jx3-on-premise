@@ -1,0 +1,13 @@
+kind: ClusterRoleBinding # Source: csi-hostpath/templates/snapshot-controller-rbac.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: snapshot-controller-role
+subjects:
+- kind: ServiceAccount
+  name: snapshot-controller
+  namespace: csi-system
+roleRef:
+  kind: ClusterRole
+  # change the name also here if the ClusterRole gets renamed
+  name: snapshot-controller-runner
+  apiGroup: rbac.authorization.k8s.io
