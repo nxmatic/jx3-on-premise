@@ -21,11 +21,11 @@ metadata:
   # Changing the namespace will cause a loss of continuity
   # with previously applied grouped objects. Set deletion
   # and pruning functionality will be impaired.
-  namespace: kpt-system
+  namespace: kpt-inventories
   # NOTE: The name of the inventory object does NOT have
   # any impact on group-related functionality such as
   # deletion or pruning.
-  name: inventory-44797850
+  name: jx3-on-premise
   labels:
     # DANGER: Do not change the value of this label.
     # Changing this value will cause a loss of continuity
