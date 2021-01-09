@@ -5,3 +5,4 @@ commonLabels:
 resources:
   - csi-hostpath
   - rancher-localpath
+  - default-storage-class.yaml
