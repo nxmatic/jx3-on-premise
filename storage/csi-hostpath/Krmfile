@@ -1,0 +1,57 @@
+apiVersion: config.k8s.io/v1alpha1
+kind: Krmfile
+openAPI:
+  definitions:
+    io.k8s.cli.setters.kubelet-path-prefix:
+      x-k8s-cli:
+        setter:
+          name kubelet-path-prefix 
+          value: /var/snap/microk8s/common
+    io.k8s.cli.substitutions.kubelet-csi-hostpath:
+      x-k8s-cli:
+        substitution:
+          name: csi-hostpath
+          pattern: ${kubelet-path-prefix}/var/lib/kubelet/plugins/csi-hostpath
+          values:
+            - marker: ${kubelet-path-prefix}
+              ref: '#/definitions/io.k8s.cli.setters.kubelet-path-prefix'
+    io.k8s.cli.substitutions.kubelet-csi-hostpath-data:
+      x-k8s-cli:
+        substitution:
+          name: csi-hostpath-data
+          pattern: ${kubelet-path-prefix}/var/lib/kubelet/plugins/csi-hostpath-data
+          values:
+            - marker: ${kubelet-path-prefix}
+              ref: '#/definitions/io.k8s.cli.setters.kubelet-path-prefix'
+    io.k8s.cli.substitutions.kubelet-csi-sock:
+      x-k8s-cli:
+        substitution:
+          name: csi-sock
+          pattern: ${kubelet-path-prefix}/var/lib/kubelet/plugins/csi-hostpath/csi.sock
+          values:
+            - marker: ${kubelet-path-prefix}
+              ref: '#/definitions/io.k8s.cli.setters.kubelet-path-prefix'
+    io.k8s.cli.substitutions.kubelet-pods:
+      x-k8s-cli:
+        substitution:
+          name: kubelet-pods
+          pattern: ${kubelet-path-prefix}/var/lib/kubelet/pods
+          values:
+            - marker: ${kubelet-path-prefix}
+              ref: '#/definitions/io.k8s.cli.setters.kubelet-path-prefix'
+    io.k8s.cli.substitutions.kubelet-plugins:
+      x-k8s-cli:
+        substitution:
+          name: kubelet-plugins
+          pattern: ${kubelet-path-prefix}/var/lib/kubelet/plugins
+          values:
+            - marker: ${kubelet-path-prefix}
+              ref: '#/definitions/io.k8s.cli.setters.kubelet-path-prefix'
+    io.k8s.cli.substitutions.kubelet-plugins_registry:
+      x-k8s-cli:
+        substitution:
+          name: kubelet-plugins_registry
+          pattern: ${kubelet-path-prefix}/var/lib/kubelet/plugins_registry
+          values:
+            - marker: ${kubelet-path-prefix}
+              ref: '#/definitions/io.k8s.cli.setters.kubelet-path-prefix'

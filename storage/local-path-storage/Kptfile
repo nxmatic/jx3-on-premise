@@ -1,0 +1,12 @@
+apiVersion: kpt.dev/v1alpha1
+kind: Kptfile
+metadata:
+  name: local-path-storage
+packageMetadata:
+  shortDescription: rancher local path storage provisioner
+upstream:
+  type: git
+  git:
+    repo: https://github.com/rancher/local-path-provisioner
+    directory: deploy
+    ref: master

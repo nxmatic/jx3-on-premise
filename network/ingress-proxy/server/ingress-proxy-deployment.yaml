@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ingress-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ingress-proxy
+  template:
+    spec:
+      privileged: true
+      containers:
+      - 
+      - name: proxy
+        image: linuxserver/openssh-server
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 500m
+            memory: 500Mi
+        ports:
+        - name: ssh
+          containerPort: 2222
+        - name: http-proxy
+          containerPort: 2080
+        - name: https-proxy
+          containerPort: 2443
+        env:
+        - name: DOCKER_MODS
+          value: "linuxserver/mods:openssh-server-ssh-tunnel"
+        - name: PUBLIC_KEY_FILE
+          value: "/var/run/secrets/ingress-proxy/key.pub"
+        - name: TZ
+          value: "Europe/Paris" # {"$kpt-set":"timezone"}
+        - name: SUDO_ACCESS
+          value: "true"
+        - name: USER_NAME
+          valueFrom:
+            secretKeyRef:
+              name: ingress-proxy
+              key: username
+        volumeMounts:
+        - name: public-key
+          mountPath: "/var/run/secrets"
+      volumes:
+      - name: public-key
+        secret:
+          secretName: ingress-proxy
+          items:
+          - key: public-key
+            path: ingress-proxy/key.pub
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ingress-proxy
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: ingress-nxmatic.jxlabs-nos-master.build-jx-prod.build.nuxeo.com # {"$kpt-set":"fqdn"}
+spec:
+  type: LoadBalancer
+  selector:
+    app.kubernetes.io/name: ingress-proxy
+  ports:
+  - protocol: TCP
+    port: 443
+    name: https-proxy
+    targetPort: 2443
+  - protocol: TCP
+    port: 80
+    name: http-proxy
+    targetPort: 2080
+  - protocol: TCP
+    port: 22
+    name: ssh
+    targetPort: 2222
+# ---
+# apiVersion: networking.k8s.io/v1beta1
+# kind: Ingress
+# metadata:
+#   annotations:
+#     kubernetes.io/ingress.class: nginx
+#   name: ingress-proxy
+# spec:
+#   rules:
+#   - host: ingress-nxmatic.jxlabs-nos-master.build-jx-prod.build.nuxeo.com # {"$kpt-set":"fqdn"}
+#     http:
+#       paths:
+#       - path: /
+#         backend:
+#           serviceName: ingress-proxy
+#           servicePort: 443

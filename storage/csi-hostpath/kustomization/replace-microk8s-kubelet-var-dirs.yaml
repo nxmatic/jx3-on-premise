@@ -1,0 +1,91 @@
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: csi-hostpath-attacher
+  namespace: csi-system
+spec:
+  template:
+    spec:
+      volumes:
+      - hostPath:
+          path: /var/lib/kubelet/plugins/csi-hostpath # {"$kpt-set":"kubelet-csi-hostpath"}
+          type: DirectoryOrCreate
+        name: socket-dir
+---
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: csi-hostpath-provisioner
+  namespace: csi-system
+spec:
+  template:
+    spec:
+      volumes:
+      - hostPath:
+          path: /var/lib/kubelet/plugins/csi-hostpath # {"$kpt-set":"kubelet-csi-hostpath"}
+          type: DirectoryOrCreate
+        name: socket-dir
+---
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: csi-hostpath-resizer
+  namespace: csi-system
+spec:
+  template:
+    spec:
+      volumes:
+      - hostPath:
+          path: /var/lib/kubelet/plugins/csi-hostpath # {"$kpt-set":"kubelet-csi-hostpath"}
+          type: DirectoryOrCreate
+        name: socket-dir
+---
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: csi-hostpath-snapshotter
+  namespace: csi-system
+spec:
+  template:
+    spec:
+      volumes:
+      - hostPath:
+          path: /var/lib/kubelet/plugins/csi-hostpath # {"$kpt-set":"kubelet-csi-hostpath"}
+          type: DirectoryOrCreate
+        name: socket-dir
+---
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: csi-hostpathplugin
+  namespace: csi-system
+spec:
+  template:
+    spec:
+      containers:
+      - name: node-driver-registrar
+        args:
+        - --v=5
+        - --csi-address=/csi/csi.sock
+        - --kubelet-registration-path=/var/lib/kubelet/plugins/csi-hostpath/csi.sock # {"$kpt-set":"kubelet-csi-sock"}
+      volumes:
+      - hostPath:
+          path: /var/lib/kubelet/plugins/csi-hostpath # {"$kpt-set":"kubelet-csi-hostpath"}
+          type: DirectoryOrCreate
+        name: socket-dir
+      - hostPath:
+          path: /var/lib/kubelet/pods # {"$kpt-set":"kubelet-pods"}
+          type: DirectoryOrCreate
+        name: mountpoint-dir
+      - hostPath:
+          path: /var/lib/kubelet/plugins_registry # {"$kpt-set":"kubelet-plugins-registry"}
+          type: Directory
+        name: registration-dir
+      - hostPath:
+          path: /var/lib/kubelet/plugins # {"$kpt-set":"kubelet-plugins"}
+          type: Directory
+        name: plugins-dir
+      - hostPath:
+          path: /var/lib/csi-hostpath-data # {"$kpt-set":"kubelet-csi-hostpath-data"}
+          type: DirectoryOrCreate
+        name: csi-data-dir

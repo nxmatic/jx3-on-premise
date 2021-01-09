@@ -1,0 +1,11 @@
+apiVersion: kpt.dev/v1alpha1
+kind: Kptfile
+metadata:
+  name: kube-ops-view
+upstream:
+  type: git
+  git:
+    commit: 0b38b4e979096fbbe13d686892873de77a05c728
+    repo: https://codeberg.org/hjacobs/kube-ops-view
+    directory: /deploy
+    ref: 20.4.0

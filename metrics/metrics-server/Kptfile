@@ -1,0 +1,11 @@
+apiVersion: kpt.dev/v1alpha1
+kind: Kptfile
+metadata:
+  name: metrics-server
+upstream:
+  type: git
+  git:
+    commit: 91dbeeb892fe47ad2a1462e035e6f54e6721bb62
+    repo: https://github.com/kubernetes-sigs/metrics-server
+    directory: /manifests
+    ref: v0.4.1
