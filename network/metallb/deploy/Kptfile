@@ -1,0 +1,11 @@
+apiVersion: kpt.dev/v1alpha1
+kind: Kptfile
+metadata:
+  name: deploy
+upstream:
+  type: git
+  git:
+    commit: 0ad8f2cc2adc098bf68662abe65aded7a71c8faf
+    repo: https://github.com/metallb/metallb
+    directory: /manifests
+    ref: main

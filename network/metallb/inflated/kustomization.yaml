@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- apps_v1_daemonset_speaker.yaml
+- apps_v1_deployment_controller.yaml
+- policy_v1beta1_podsecuritypolicy_controller.yaml
+- policy_v1beta1_podsecuritypolicy_speaker.yaml
+- rbac.authorization.k8s.io_v1_clusterrole_metallb-system:controller.yaml
+- rbac.authorization.k8s.io_v1_clusterrole_metallb-system:speaker.yaml
+- rbac.authorization.k8s.io_v1_clusterrolebinding_metallb-system:controller.yaml
+- rbac.authorization.k8s.io_v1_clusterrolebinding_metallb-system:speaker.yaml
+- rbac.authorization.k8s.io_v1_role_config-watcher.yaml
+- rbac.authorization.k8s.io_v1_role_pod-lister.yaml
+- rbac.authorization.k8s.io_v1_rolebinding_config-watcher.yaml
+- rbac.authorization.k8s.io_v1_rolebinding_pod-lister.yaml
+- v1_serviceaccount_controller.yaml
+- v1_serviceaccount_speaker.yaml
