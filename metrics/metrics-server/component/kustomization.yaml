@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+namespace: metrics-server
+commonLabels:
+  name: metrics-server
+  component: metrics
+  part-of: kubernetes
+resources:
+- ../release

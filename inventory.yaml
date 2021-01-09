@@ -1,5 +1,5 @@
 # NOTE: auto-generated. Some fields should NOT be modified.
-# Date: 2021-01-07 18:39:30 CET
+# Date: 2021-01-09 14:19:50 CET
 #
 # Contains the "inventory object" template ConfigMap.
 # When this object is applied, it is handled specially,
@@ -21,14 +21,14 @@ metadata:
   # Changing the namespace will cause a loss of continuity
   # with previously applied grouped objects. Set deletion
   # and pruning functionality will be impaired.
-  namespace: jenkins
+  namespace: kpt-system
   # NOTE: The name of the inventory object does NOT have
   # any impact on group-related functionality such as
   # deletion or pruning.
-  name: inventory-22035095
+  name: inventory-44797850
   labels:
     # DANGER: Do not change the value of this label.
     # Changing this value will cause a loss of continuity
     # with previously applied grouped objects. Set deletion
     # and pruning functionality will be impaired.
-    cli-utils.sigs.k8s.io/inventory-id: fee30511-b7ac-4302-bfe9-cf627750b084
+    cli-utils.sigs.k8s.io/inventory-id: e3f5d116-0f33-443b-a164-6252207c3cec

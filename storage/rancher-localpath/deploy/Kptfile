@@ -5,7 +5,7 @@ metadata:
 upstream:
   type: git
   git:
-    commit: d253f2bef7177960ac800a986698dd59a06fda5e
+    commit: a18426d327762b9e7779b5712ce135c46038db00
     repo: https://github.com/rancher/local-path-provisioner
-    directory: /deploy
+    directory: /deploy/chart
     ref: master
