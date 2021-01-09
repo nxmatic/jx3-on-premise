@@ -3,7 +3,6 @@ kind: Kustomization
 commonLabels:
   component: storage
 resources:
-  - csi-hostpath
-  - rancher-localpath
-  - docker-hostpath
-  - default-storage-class.yaml
+  - inflated
+patchesStrategicMerge:
+  - reset-default-storage-class.yaml
