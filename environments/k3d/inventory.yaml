@@ -1,5 +1,5 @@
 # NOTE: auto-generated. Some fields should NOT be modified.
-# Date: 2020-12-26 23:59:24 CET
+# Date: 2021-01-09 14:19:50 CET
 #
 # Contains the "inventory object" template ConfigMap.
 # When this object is applied, it is handled specially,
@@ -21,14 +21,14 @@ metadata:
   # Changing the namespace will cause a loss of continuity
   # with previously applied grouped objects. Set deletion
   # and pruning functionality will be impaired.
-  namespace: nxmatic
+  namespace: kpt-inventories
   # NOTE: The name of the inventory object does NOT have
   # any impact on group-related functionality such as
   # deletion or pruning.
-  name: inventory-45757389
+  name: jx3-on-premise
   labels:
     # DANGER: Do not change the value of this label.
     # Changing this value will cause a loss of continuity
     # with previously applied grouped objects. Set deletion
     # and pruning functionality will be impaired.
-    cli-utils.sigs.k8s.io/inventory-id: 31c594d7-1020-4fb0-919f-a2c3d7b8de78
+    cli-utils.sigs.k8s.io/inventory-id: e3f5d116-0f33-443b-a164-6252207c3cec

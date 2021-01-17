@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gcp-auth-certs-patch
+  namespace: gcp-auth
+spec:
+  template:
+    metadata:
+      name: gcp-auth-certs-patch
+    spec:
+      serviceAccountName: gcp-auth-certs
+      containers:
+        - name: patch
+          image: jettech/kube-webhook-certgen:v1.3.0
+          imagePullPolicy: IfNotPresent
+          args:
+            - patch
+            - --secret-name=gcp-auth-certs
+            - --namespace=gcp-auth
+            - --patch-validating=false
+            - --webhook-name=gcp-auth-webhook-cfg
+      restartPolicy: OnFailure

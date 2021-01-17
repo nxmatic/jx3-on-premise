@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gcp-auth
+  namespace: gcp-auth
+spec:
+  template:
+    spec:
+      volumes:
+        - 
+          name: gcp-project
+          secret:
+            secretName: gcp-project

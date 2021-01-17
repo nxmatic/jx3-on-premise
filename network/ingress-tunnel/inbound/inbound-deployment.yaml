@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inbound-ingress-tunnel
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: autossh
+          image: jnovack/autossh
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 200m
+              memory: 200Mi
+          env:
+            - name: SSH_KEY_FILE
+              value: "/var/run/secrets/ingress-tunnel/key"
+            - name: SSH_REMOTE_USER
+              value: "nxmatic"  # {"$pkt-set":"username"}
+            - name: SSH_REMOTE_HOST
+              value: "ingress-nxmatic.jxlabs-nos-master.build-jx-prod.build.nuxeo.com"  # {"$kpt-set":"hostname-binding"}
+            - name: SSH_TARGET_HOST
+              value: "172.18.0.129"  # {"$kpt-set":"load-balancer"}
+            - name: SSH_TARGET_PORT
+              value: "443"
+            - name: SSH_BIND_IP
+              value: "0.0.0.0"
+            - name: SSH_TUNNEL_PORT
+              value: "2443"
+          volumeMounts:
+            - name: key
+              mountPath: "/var/run/secrets"
+      volumes:
+        - name: key
+          secret:
+            secretName: ingress-tunnel
+            items:
+              - key: key
+                path: ingress-tunnel/key

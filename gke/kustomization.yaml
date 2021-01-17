@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: gcp-auth
+resources:
+  - inflated
+secretGenerator:
+  - name: gcp-project
+    files:
+      - google_application_credentials.json=build-jx-prod.json
+patchesJson6902:
+  - target:
+      version: v1
+      kind: Deployment
+      name: gcp-auth
+      namespace: gcp-auth
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/volumes/1
+        value:
+          name: gcp-project
+          secret:
+            secretName: gcp-project
+

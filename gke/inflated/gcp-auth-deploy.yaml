@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gcp-auth
+  namespace: gcp-auth
+spec:
+  selector:
+    matchLabels:
+      app: gcp-auth
+  template:
+    metadata:
+      labels:
+        app: gcp-auth
+        kubernetes.io/addons: gcp-auth
+    spec:
+      containers:
+        - name: gcp-auth
+          image: gcr.io/k8s-minikube/gcp-auth-webhook:v0.0.3
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8443
+          volumeMounts:
+            - name: webhook-certs
+              mountPath: /etc/webhook/certs
+              readOnly: true
+            - name: gcp-project
+              mountPath: /var/lib/minikube/google_cloud_project
+              readOnly: true
+      volumes:
+      - name: webhook-certs
+        secret:
+          secretName: gcp-auth-certs
+      - name: gcp-project
+        hostPath:
+          path: /var/lib/minikube/google_cloud_project
+          type: File

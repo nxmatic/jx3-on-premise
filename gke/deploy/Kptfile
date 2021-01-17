@@ -1,0 +1,11 @@
+apiVersion: kpt.dev/v1alpha1
+kind: Kptfile
+metadata:
+  name: gcp-auth
+upstream:
+  type: git
+  git:
+    commit: f17951c4f28e4bcf50fc8f4a377838c0417d3880
+    repo: https://github.com/kubernetes/minikube
+    directory: /deploy/addons/gcp-auth
+    ref: master

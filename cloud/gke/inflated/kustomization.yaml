@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: gcp-auth
+resources:
+- gcp-auth-certs-create-job.yaml
+- gcp-auth-certs-patch-job.yaml
+- gcp-auth-cm.yaml
+- gcp-auth-deploy.yaml
+- gcp-auth-ns.yaml
+- gcp-auth-svc.yaml
+- gcp-auth-webhook-cfg-mutwebhookcfg.yaml
+- gcp-auth-certs-clusterrole.yaml
+- gcp-auth-certs-crb.yaml
+- gcp-auth-certs-sa.yaml

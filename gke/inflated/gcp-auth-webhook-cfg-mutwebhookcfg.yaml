@@ -1,0 +1,32 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: gcp-auth-webhook-cfg
+  labels:
+    app: gcp-auth
+webhooks:
+- name: gcp-auth-mutate.k8s.io
+  failurePolicy: Ignore
+  objectSelector:
+    matchExpressions:
+      - key: gcp-auth-skip-secret
+        operator: DoesNotExist
+  namespaceSelector:
+    matchExpressions:
+      - key: name
+        operator: NotIn
+        values:
+        - kube-system
+  sideEffects: None
+  admissionReviewVersions: ["v1","v1beta1"]
+  clientConfig:
+    service:
+      name: gcp-auth
+      namespace: gcp-auth
+      path: "/mutate"
+  rules:
+  - operations: ["CREATE", "UPDATE"]
+    apiGroups: ["*"]
+    apiVersions: ["*"]
+    resources: ["pods"]
+    scope: "*"

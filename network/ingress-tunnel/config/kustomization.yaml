@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+secretGenerator:
+- name: ingress-tunnel
+  type: opaque
+  files:
+  - key=key.rsa
+  - public-key=key.pub

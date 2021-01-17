@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gcp-auth-certs-create
+  namespace: gcp-auth
+spec:
+  template:
+    metadata:
+      name: gcp-auth-certs-create
+    spec:
+      serviceAccountName: gcp-auth-certs
+      containers:
+        - name: create
+          image: jettech/kube-webhook-certgen:v1.3.0
+          imagePullPolicy: IfNotPresent
+          args:
+            - create
+            - --host=gcp-auth,gcp-auth.gcp-auth,gcp-auth.gcp-auth.svc
+            - --namespace=gcp-auth
+            - --secret-name=gcp-auth-certs
+      restartPolicy: OnFailure

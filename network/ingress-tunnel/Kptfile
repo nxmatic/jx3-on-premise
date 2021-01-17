@@ -1,0 +1,42 @@
+apiVersion: kpt.dev/v1alpha1
+kind: Kptfile
+metadata:
+  name: ingress-proxy
+packageMetadata:
+  shortDescription: proxy ingress load-balancer
+openAPI:
+  definitions:
+    io.k8s.cli.setters.timezone:
+      x-k8s-cli:
+        setter:
+          name: timezone
+          value: Europe/Paris
+          isSet: true
+    io.k8s.cli.setters.username:
+      x-k8s-cli:
+        setter:
+          name: username
+          value: nxmatic
+          isSet: true
+    io.k8s.cli.setters.domain:
+      x-k8s-cli:
+        setter:
+          name: domain
+          value: jxlabs-nos-master.build-jx-prod.build.nuxeo.com
+          isSet: true
+    io.k8s.cli.setters.load-balancer:
+      x-k8s-cli:
+        setter:
+          name: load-balancer
+          value: 172.18.0.129
+          isSet: true
+    io.k8s.cli.substitutions.hostname-binding:
+      x-k8s-cli:
+        substitution:
+          name: hostname-binding
+          pattern: ingress-${username}.${domain}
+          values:
+          - marker: ${username}
+            ref: '#/definitions/io.k8s.cli.setters.username'
+          - marker: ${domain}
+            ref: '#/definitions/io.k8s.cli.setters.domain'
